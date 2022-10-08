@@ -8,7 +8,7 @@ import "antd/dist/antd.css";
 
 import "../../styles/main.css";
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ConfigProvider locale={ptBR}>
       <UserProvider>
@@ -17,5 +17,3 @@ function MyApp({ Component, pageProps }: AppProps) {
     </ConfigProvider>
   );
 }
-
-export default MyApp;
