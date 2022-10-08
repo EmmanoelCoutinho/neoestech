@@ -6,7 +6,7 @@ import { ConfigProvider } from "antd";
 import ptBR from "antd/lib/locale/pt_BR";
 import "antd/dist/antd.css";
 
-import "../../styles/main.css";
+import "../styles/main.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
