@@ -7,7 +7,7 @@ interface IUserProps {
 }
 
 interface IUserContext {
-  userData: {};
+  userData: any;
   setUserData: (value: Promise<IUser>) => void;
 }
 
@@ -15,8 +15,6 @@ export const UserContext = createContext({} as IUserContext);
 
 export function UserProvider({ children }: IUserProps) {
   const [userData, setUserData] = useState({});
-
-  // console.log(userData);
 
   return (
     <UserContext.Provider value={{ userData, setUserData }}>
