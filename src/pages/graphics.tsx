@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import Layout from "../layout/Layout";
+import MainLayout from "../layout/Layout";
 
 import { getEquipmentList } from "../services/monitoring";
 
@@ -10,22 +10,21 @@ const GraphicCards = dynamic(() => import("../components/GraphicChart"), {
 
 export default function Graphics() {
   const [equipaments, setEquipaments] = useState([]);
-  console.log(equipaments);
 
   const getEquips = async () => {
     const data: any = await getEquipmentList(
       "1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ",
       "CSDTAM"
     );
-    const filtredData: any = filterData(data, [2475, 2476]);
+    const filtredData: any = filterData(data, ["CSDTAM0006", "CSDTAM0007"]);
     setEquipaments(filtredData);
   };
 
-  const filterData = (arr: [], filters: Number[]) => {
-    const map = filters.map((item) => {
-      return arr.filter((i: any) => i.id === item);
+  const filterData = (arr: [], filters: String[]) => {
+    const newArr = filters.map((item) => {
+      return arr.filter((i: any) => i.qr_code_neo === item);
     });
-    return map;
+    return newArr;
   };
 
   useEffect(() => {
@@ -33,8 +32,8 @@ export default function Graphics() {
   }, []);
 
   return (
-    <Layout>
-      <div className="w-screen h-full bg-white">
+    <MainLayout>
+      <div className="w-full h-full bg-white ">
         {equipaments.map((item: any) => (
           <GraphicCards
             key={item[0].id}
@@ -46,6 +45,6 @@ export default function Graphics() {
           />
         ))}
       </div>
-    </Layout>
+    </MainLayout>
   );
 }

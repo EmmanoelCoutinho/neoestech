@@ -29,7 +29,7 @@ const Map = () => {
       center={[-23.292354, -51.178975]}
       zoom={7}
       scrollWheelZoom={true}
-      style={{ height: "100vh", width: "100vw" }}
+      style={{ height: "100%", width: "100%" }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

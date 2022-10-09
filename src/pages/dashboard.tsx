@@ -1,11 +1,7 @@
 import React from "react";
 
-import Layout from "../layout/Layout";
+import MainLayout from "../layout/Layout";
 
 export default function Dashboard() {
-  return (
-    <Layout>
-      <div>Dashboard</div>
-    </Layout>
-  );
+  return <MainLayout>dasda</MainLayout>;
 }

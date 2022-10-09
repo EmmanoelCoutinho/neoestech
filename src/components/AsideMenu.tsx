@@ -50,7 +50,9 @@ const AsideMenu: React.FC = () => {
       <Button
         type="default"
         onClick={toggleCollapsed}
-        className="w-full flex justify-center items-center text-[#f69b44] border-none focus:text-[#f69b44] "
+        className={`${
+          collapsed ? "w-20" : "w-full"
+        } flex justify-center items-center text-[#f69b44]  focus:text-[#f69b44] border-b-0 border-t-0 border-right-[1px] border-r-[#f69b44] `}
       >
         {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
       </Button>
@@ -63,7 +65,7 @@ const AsideMenu: React.FC = () => {
         onSelect={({ key }: any) => {
           Router.push(pages[key - 1]);
         }}
-        className="bg-white w-full text-[#f69b44]"
+        className="bg-white w-full h-full min-h-screen text-[#f69b44] border-[#f69b44] "
       />
     </div>
   );
