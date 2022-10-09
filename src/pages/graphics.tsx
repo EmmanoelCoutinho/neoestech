@@ -37,6 +37,8 @@ export default function Graphics() {
         {equipaments.map((item: any) => (
           <GraphicCards
             key={item[0].id}
+            equipId={item[0].id}
+            equipKey={item[0].chave}
             category={item[0].categoria}
             currentTemperature={item[0].temperatura_atual}
             equipament={item[0].equipamento}

@@ -8,6 +8,8 @@ interface Iprops {
   currentTemperature: string;
   unitOfMeasurenment: string;
   lastTempCheck: string;
+  equipId: number;
+  equipKey: string;
 }
 
 interface IArr {
@@ -24,14 +26,16 @@ export default function GraphicCards({
   currentTemperature,
   unitOfMeasurenment,
   lastTempCheck,
+  equipId,
+  equipKey,
 }: Iprops) {
   const [graphicTemps, setGraphicTemps] = React.useState([]);
 
   const getLastDayTemps = async () => {
     const data: any = await getLastDayInfos(
       "1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ",
-      "2475",
-      "temp_saida"
+      `${equipId}`,
+      `${equipKey}`
     );
     const filtredData: any = formateDateTime(data);
     setGraphicTemps(filtredData);
