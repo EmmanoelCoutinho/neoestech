@@ -52,7 +52,7 @@ const Home: NextPage = () => {
               ]}
               className="w-full mt-5"
             >
-              <Input className="w-full mb-4" placeholder="Login" />
+              <Input className="w-full " placeholder="Login" />
             </Form.Item>
             <Form.Item
               name="password"
@@ -61,7 +61,7 @@ const Home: NextPage = () => {
               ]}
               className="w-full"
             >
-              <Input.Password className="w-full mb-4" placeholder="Senha" />
+              <Input.Password className="w-full mt-4" placeholder="Senha" />
             </Form.Item>
             {err ?? <span className="text-white">{err}</span>}
             <button

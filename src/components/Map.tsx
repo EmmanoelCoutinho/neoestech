@@ -6,8 +6,7 @@ import { UserContext } from "../contexts/userContext";
 
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 
-import { getQuaters } from "../services/monitoring";
-import { text } from "stream/consumers";
+import { getQuatersList } from "../services/monitoring";
 
 const Map = () => {
   const { userData } = useContext(UserContext);
@@ -15,7 +14,7 @@ const Map = () => {
   const [quater, setQuater] = useState([]);
 
   const getQuaterData = async () => {
-    const data: any = await getQuaters(
+    const data: any = await getQuatersList(
       "1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ"
     );
     setQuater(data);
@@ -27,8 +26,8 @@ const Map = () => {
 
   return (
     <MapContainer
-      center={[0, 0]}
-      zoom={3}
+      center={[-23.292354, -51.178975]}
+      zoom={7}
       scrollWheelZoom={true}
       style={{ height: "100vh", width: "100vw" }}
     >
