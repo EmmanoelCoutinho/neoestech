@@ -46,13 +46,11 @@ const AsideMenu: React.FC = () => {
   };
 
   return (
-    <div className="w-64 bg-white">
+    <div className={`${collapsed ? "w-20" : "w-64"}`}>
       <Button
         type="default"
         onClick={toggleCollapsed}
-        className={`${
-          collapsed ? "w-20" : "w-full"
-        } flex justify-center items-center text-[#f69b44]  focus:text-[#f69b44] border-b-0 border-t-0 border-right-[1px] border-r-[#f69b44] `}
+        className={`w-full flex justify-center items-center text-[#f69b44]  focus:text-[#f69b44] border-b-0 border-t-0 border-right-[1px] border-r-[#f69b44] `}
       >
         {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
       </Button>
