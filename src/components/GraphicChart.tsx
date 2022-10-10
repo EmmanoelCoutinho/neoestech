@@ -59,13 +59,16 @@ export default function GraphicCards({
 
   return (
     <div className="max-w-fit min-h-fit bg-white p-3 mb-16 overflow-auto ">
-      <div className="mb-6 ml-8 flex flex-col">
-        <h3 className="text-2xl ">{equipament}</h3>
+      <div className="mb-6 ml-11 flex flex-col">
+        <h3 className="text-2xl text-bold ">{equipament}</h3>
         <span>{category}</span>
 
         <span>
-          Temperatura atual: {currentTemperature}
-          {unitOfMeasurenment}
+          Temperatura atual:{" "}
+          <strong className="text-blue-500">
+            {currentTemperature}
+            {unitOfMeasurenment}
+          </strong>
         </span>
 
         <span>
