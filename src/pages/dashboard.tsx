@@ -25,6 +25,7 @@ export default function Dashboard() {
     const res = await getAllPriceList(
       "1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ"
     );
+    console.log(res);
     setPriceList(res);
   };
 
@@ -35,6 +36,15 @@ export default function Dashboard() {
   return (
     <MainLayout>
       <div className="w-full h-full overflow-hidden">
+        <div className="w-full h-fit flex justify-end">
+          <button
+            onClick={() => setNewModalPriceState(true)}
+            className="w-fit h-fit bg-[#f69b44] my-4 mr-4
+          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
+          >
+            <PlusOutlined /> Adicionar novo preço
+          </button>
+        </div>
         <div>
           <Table
             rowSelection={{
@@ -44,13 +54,6 @@ export default function Dashboard() {
             columns={columns}
             dataSource={priceList}
           />
-          <button
-            onClick={() => setNewModalPriceState(true)}
-            className="w-fit h-fit bg-[#f69b44] mt-4 ml-4
-          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
-          >
-            <PlusOutlined /> Adicionar novo preço
-          </button>
         </div>
       </div>
       {newPriceModalState && (
