@@ -34,6 +34,9 @@ export default function Graphics() {
   return (
     <MainLayout>
       <div className="w-full h-full bg-white ">
+        <h1 className="ml-14 mt-4 font-bold text-3xl text-[#f69b44]">
+          Gráficos das ultimas 24h de operação
+        </h1>
         {equipaments.map((item: any) => (
           <GraphicCards
             key={item[0].id}
