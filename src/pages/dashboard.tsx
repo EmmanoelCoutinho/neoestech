@@ -1,24 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
+import { IDataType } from "../@types/dashboardTableDataType";
 
-import { Table, Alert } from "antd";
-import type { ColumnsType } from "antd/es/table";
+import { Table } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 
 import { getAllPriceList } from "../services/prices";
 
+import Modal from "../components/Modal";
+import DashboardForm from "../components/DashboardForm";
+
+import { NewPriceModalContext } from "../contexts/newPriceModalContext";
+
+import { rowSelection, columns } from "../utils/dashboardTableConfig";
+
 import MainLayout from "../layout/Layout";
 
-interface IDataType {
-  key: React.Key;
-  cidade: string;
-  combustivel: string;
-  preco: string;
-  created_at: string;
-  updated_at: string;
-}
-
 export default function Dashboard() {
-  const [priceList, setPriceList] = useState([]);
+  const { newPriceModalState, setNewModalPriceState } =
+    useContext(NewPriceModalContext);
+
+  const [priceList, setPriceList] = useState<IDataType[]>([]);
 
   const getList = async () => {
     const res = await getAllPriceList(
@@ -26,48 +27,6 @@ export default function Dashboard() {
     );
     setPriceList(res);
   };
-
-  const rowSelection = {
-    onChange: (selectedRowKeys: React.Key[], selectedRows: IDataType[]) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
-    },
-    getCheckboxProps: (record: IDataType) => ({
-      disabled: record.cidade === "Disabled User", // Column configuration not to be checked
-      name: record.cidade,
-      key: record.key,
-    }),
-  };
-
-  const columns: ColumnsType<IDataType> = [
-    {
-      title: "Cidade",
-      dataIndex: "cidade",
-
-      render: (text: string) => <a>{text}</a>,
-    },
-    {
-      title: "Combustível",
-      dataIndex: "combustivel",
-    },
-
-    {
-      title: "Preço",
-      dataIndex: "preco",
-    },
-    {
-      title: "Ações",
-      render: (text: string, record: IDataType) => (
-        <div>
-          <button>Editar</button>
-          <button>Deletar</button>
-        </div>
-      ),
-    },
-  ];
 
   useEffect(() => {
     getList();
@@ -77,7 +36,6 @@ export default function Dashboard() {
     <MainLayout>
       <div className="w-full h-full overflow-hidden">
         <div>
-          <Alert message="Preços atualizados" type="success" showIcon />
           <Table
             rowSelection={{
               type: "checkbox",
@@ -87,6 +45,7 @@ export default function Dashboard() {
             dataSource={priceList}
           />
           <button
+            onClick={() => setNewModalPriceState(true)}
             className="w-fit h-fit bg-[#f69b44] mt-4 ml-4
           flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
           >
@@ -94,6 +53,9 @@ export default function Dashboard() {
           </button>
         </div>
       </div>
+      {newPriceModalState && (
+        <Modal title="Informe o novo preço" children={<DashboardForm />} />
+      )}
     </MainLayout>
   );
 }

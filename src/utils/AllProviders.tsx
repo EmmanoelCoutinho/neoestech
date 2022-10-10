@@ -1,6 +1,6 @@
 import { ConfigProvider } from "antd";
 import { UserProvider } from "../contexts/userContext";
-import { NewPriceModalProvider } from "../contexts/newPriceModal";
+import { NewPriceModalProvider } from "../contexts/newPriceModalContext";
 
 const composeProviders =
   (...providers: any[]) =>

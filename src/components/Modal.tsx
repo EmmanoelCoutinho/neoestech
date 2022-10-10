@@ -1,35 +1,36 @@
-import { Button, Modal } from "antd";
-import React, { useState } from "react";
+import React, { useContext } from "react";
+import { Modal } from "antd";
 
-export default function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+import { NewPriceModalContext } from "../contexts/newPriceModalContext";
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
+interface IProps {
+  title: string;
+  children: React.ReactNode;
+  footerItems?: React.ReactNode[] | null;
+}
+
+export default function App({ title, children, footerItems = null }: IProps) {
+  const { newPriceModalState, setNewModalPriceState } =
+    useContext(NewPriceModalContext);
 
   const handleOk = () => {
-    setIsModalOpen(false);
+    setNewModalPriceState(false);
   };
 
   const handleCancel = () => {
-    setIsModalOpen(false);
+    setNewModalPriceState(false);
   };
 
   return (
     <>
-      <Button type="primary" onClick={showModal}>
-        Open Modal
-      </Button>
       <Modal
-        title="Basic Modal"
-        open={isModalOpen}
+        open={newPriceModalState}
+        title={title}
         onOk={handleOk}
         onCancel={handleCancel}
+        footer={footerItems}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <div className="w-full h-full">{children}</div>
       </Modal>
     </>
   );

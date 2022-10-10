@@ -27,11 +27,11 @@ export async function createNewPrice(token: string, data: {}) {
       },
     });
 
-    return price.data;
+    return { status: "success", message: '"Preço cadastrado com sucesso!"' };
   } catch {
     (err: any) => {
       console.log(err);
-      return err;
+      return { status: "error", message: "Erro ao cadastrar preço!" };
     };
   }
 }
