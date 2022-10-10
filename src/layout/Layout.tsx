@@ -30,7 +30,7 @@ export default function MainLayout({ children }: any) {
   }, []);
 
   return (
-    <div className="w-screen h-screen flex flex-col overflow-x-visible">
+    <div className="w-screen h-screen flex flex-col overflow-x-hidden">
       <PageHeader
         className="border-b-[1px] border-[#f69b44] "
         onBack={() => router.back()}
