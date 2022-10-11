@@ -62,7 +62,7 @@ export default function GraphicCards({
 
   return (
     <div className="max-w-fit min-h-fit bg-white p-3 mb-16 overflow-auto ">
-      <div className="mb-6 ml-11 flex flex-col">
+      {/* <div className="mb-6 ml-11 flex flex-col">
         <h3 className="text-2xl text-bold ">{equipament}</h3>
         <span>{category}</span>
 
@@ -74,14 +74,14 @@ export default function GraphicCards({
           </strong>
         </span>
 
-        {/* <span>
+        <span>
           Última checagem de temperata:{" "}
           {new Intl.DateTimeFormat("pt-BR", {
             dateStyle: "short",
             timeStyle: "short",
           }).format(new Date(lastTempCheck))}
-        </span> */}
-      </div>
+        </span>
+      </div> */}
       <LineChart width={1200} height={200} data={graphicTemps}>
         <Line type="monotone" dataKey="temperatura" stroke="#f69b44" />
         <CartesianGrid stroke="#ccc" />
