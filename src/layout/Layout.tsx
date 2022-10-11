@@ -28,15 +28,15 @@ export default function MainLayout({ children }: any) {
     }
   };
 
-  // const checkUserIsLogged = () => {
-  //   if (userData.token == undefined) {
-  //     router.push("/");
-  //   }
-  // };
+  const checkUserIsLogged = () => {
+    if (userData.token == undefined) {
+      router.push("/");
+    }
+  };
 
   useEffect(() => {
     checkPath();
-    // checkUserIsLogged();
+    checkUserIsLogged();
   }, []);
 
   return (
