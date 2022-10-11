@@ -78,13 +78,13 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <MainLayout>
+    <>
       <div className="w-screen h-full ">
         <div className="w-full h-fit flex justify-center items-center">
           <input
             type="text"
             className="w-20 h-fit border border-[#f69b44] my-4 mr-4
-          flex items-center justify-center p-2 gap-2 rounded-md font-black"
+      flex items-center justify-center p-2 gap-2 rounded-md font-black"
             placeholder="Buscar por cidades"
             value={searchText}
             onChange={(e) => {
@@ -93,14 +93,14 @@ export default function Dashboard() {
           />
           <button
             className="w-fit h-fit bg-green-500 my-4 mr-4
-          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
+      flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
             onClick={handleSearch}
           >
             <SendOutlined />
           </button>
           <button
             className="w-fit h-fit bg-violet-500 my-4 mr-4
-          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
+      flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
             onClick={getList}
           >
             <ReloadOutlined />
@@ -112,7 +112,7 @@ export default function Dashboard() {
               setEditOrCreate("create");
             }}
             className="w-fit h-fit bg-[#f69b44] my-4 mr-4
-          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
+      flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
           >
             <PlusOutlined />
           </button>
@@ -122,7 +122,7 @@ export default function Dashboard() {
               setEditOrCreate("edit");
             }}
             className="w-fit h-fit bg-blue-500 my-4 mr-4
-          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
+      flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
           >
             <EditOutlined />
           </button>
@@ -130,7 +130,7 @@ export default function Dashboard() {
           <button
             onClick={() => deletingSelecteds(selectedRows)}
             className="w-fit h-fit bg-red-500 my-4 mr-4
-          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
+      flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
           >
             <DeleteOutlined />
           </button>
@@ -156,6 +156,6 @@ export default function Dashboard() {
           <DashboardForm selectedRows={selectedRows} />
         </Modal>
       )}
-    </MainLayout>
+    </>
   );
 }
