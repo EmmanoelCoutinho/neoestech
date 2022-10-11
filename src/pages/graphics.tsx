@@ -29,7 +29,7 @@ export default function Graphics() {
 
   useEffect(() => {
     getEquips();
-  }, [getEquips]);
+  }, []);
 
   return (
     <MainLayout>
