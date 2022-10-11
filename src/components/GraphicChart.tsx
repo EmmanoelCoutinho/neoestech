@@ -55,7 +55,7 @@ export default function GraphicCards({
 
   useEffect(() => {
     getLastDayTemps();
-  }, []);
+  }, [getLastDayTemps]);
 
   return (
     <div className="max-w-fit min-h-fit bg-white p-3 mb-16 overflow-auto ">

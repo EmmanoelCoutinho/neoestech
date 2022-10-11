@@ -9,7 +9,7 @@ interface IProps {
   setOpen: (value: boolean) => void;
 }
 
-export default function ({
+export default function Map({
   title,
   children,
   footerItems = null,

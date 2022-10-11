@@ -33,7 +33,7 @@ const Home: NextPage = () => {
     <div className="w-screen h-screen flex items-center justify-center bg-[#f69b44]">
       <div className="bg-white w-11/12 max-w-lg flex flex-col p-5">
         <div className="w-full flex justify-center">
-          <Image src="/logo.png" width={188} height={133} />
+          <Image src="/logo.png" width={188} height={133} alt="Logo" />
         </div>
         <div>
           <Form

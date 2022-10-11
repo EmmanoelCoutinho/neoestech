@@ -150,10 +150,11 @@ export default function Dashboard() {
       {newPriceModalState && (
         <Modal
           title="Informe o novo preço"
-          children={<DashboardForm selectedRows={selectedRows} />}
           open={newPriceModalState}
           setOpen={setNewModalPriceState}
-        />
+        >
+          <DashboardForm selectedRows={selectedRows} />
+        </Modal>
       )}
     </MainLayout>
   );

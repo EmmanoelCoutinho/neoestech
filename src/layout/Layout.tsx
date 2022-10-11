@@ -27,7 +27,7 @@ export default function MainLayout({ children }: any) {
 
   useEffect(() => {
     checkPath();
-  }, []);
+  }, [checkPath]);
 
   return (
     <div className="w-screen h-full flex flex-col">
