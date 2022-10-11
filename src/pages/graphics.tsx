@@ -16,17 +16,17 @@ export default function Graphics() {
 
   const getEquips = async () => {
     const data: any = await getEquipmentList(`${userData.token}`, "CSDTAM");
-    const filtredData: any = filterData(data, ["CSDTAM0006", "CSDTAM0007"]);
+    // const filtredData: any = filterData(data, ["CSDTAM0006", "CSDTAM0007"]);
     // setEquipaments(data);
-    console.log(filtredData);
+    // console.log(filtredData);
   };
 
-  const filterData = (arr: [], filters: String[]) => {
-    const newArr = filters.map((item) => {
-      return arr.filter((i: any) => i.qr_code_neo === item);
-    });
-    return newArr;
-  };
+  // const filterData = (arr: [], filters: String[]) => {
+  //   const newArr = filters.map((item) => {
+  //     return arr.filter((i: any) => i.qr_code_neo === item);
+  //   });
+  //   return newArr;
+  // };
 
   useEffect(() => {
     getEquips();
