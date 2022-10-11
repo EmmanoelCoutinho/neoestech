@@ -4,7 +4,8 @@ import { Alert, Form, Input, Select } from "antd";
 
 import { createNewPrice, updatePrice } from "../../../services/prices";
 
-import { NewPriceModalContext } from "../../../contexts/modalsContexts/newPriceModalContext";
+import { NewPriceModalContext } from "../../../contexts/newPriceModalContext";
+import { UserContext } from "../../../contexts/userContext";
 
 interface iDataProps {
   cidade: string;
@@ -18,6 +19,8 @@ interface iLog {
 }
 
 const DashboardForm = ({ selectedRows }: any) => {
+  const { userData } = useContext(UserContext);
+
   const router = useRouter();
   const { editOrCreate } = useContext(NewPriceModalContext);
 
@@ -32,6 +35,7 @@ const DashboardForm = ({ selectedRows }: any) => {
       setTimeout(() => router.reload(), 3000);
     }
     updatindSelectedRows(selectedRows, values);
+    router.reload();
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -39,14 +43,11 @@ const DashboardForm = ({ selectedRows }: any) => {
   };
 
   const sendNewPrice = async (data: iDataProps) => {
-    const status: any = await createNewPrice(
-      "1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ",
-      {
-        cidade: data.cidade,
-        combustivel: data.combustivel,
-        preco: parseFloat(data.preco),
-      }
-    );
+    const status: any = await createNewPrice(`${userData.token}`, {
+      cidade: data.cidade,
+      combustivel: data.combustivel,
+      preco: parseFloat(data.preco),
+    });
     setLog(status);
     setShowAlert(true);
     return status;
@@ -54,7 +55,7 @@ const DashboardForm = ({ selectedRows }: any) => {
 
   const updatindSelectedRows = (arr: any[], values: any) => {
     arr.map((item) => {
-      updatePrice("1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ", item.id, {
+      updatePrice(`${userData.token}`, item.id, {
         cidade: values.cidade,
         combustivel: values.combustivel,
         preco: parseFloat(values.preco),

@@ -14,9 +14,7 @@ const Map = () => {
   const [quater, setQuater] = useState([]);
 
   const getQuaterData = async () => {
-    const data: any = await getQuatersList(
-      "1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ"
-    );
+    const data: any = await getQuatersList(`${userData.token}`);
     setQuater(data);
   };
 

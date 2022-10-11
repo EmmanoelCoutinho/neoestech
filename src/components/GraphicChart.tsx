@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts";
+import { UserContext } from "../contexts/userContext";
 import { getLastDayInfos } from "../services/monitoring";
 
 interface Iprops {
@@ -29,11 +30,13 @@ export default function GraphicCards({
   equipId,
   equipKey,
 }: Iprops) {
+  const { userData } = useContext(UserContext);
+
   const [graphicTemps, setGraphicTemps] = React.useState([]);
 
   const getLastDayTemps = async () => {
     const data: any = await getLastDayInfos(
-      "1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ",
+      `${userData.token}`,
       `${equipId}`,
       `${equipKey}`
     );

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseUrl = "https://dev.api.neoestech.com.br";
+import { baseUrl } from "../utils/baseUrl";
 
 export async function getQuatersList(token: string) {
   try {
