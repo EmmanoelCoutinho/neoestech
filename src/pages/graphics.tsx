@@ -28,9 +28,9 @@ export default function Graphics() {
   //   return newArr;
   // };
 
-  useEffect(() => {
-    getEquips();
-  }, []);
+  // useEffect(() => {
+  //   getEquips();
+  // }, []);
 
   return <div>teste</div>;
 }
