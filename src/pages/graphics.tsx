@@ -17,7 +17,8 @@ export default function Graphics() {
   const getEquips = async () => {
     const data: any = await getEquipmentList(`${userData.token}`, "CSDTAM");
     const filtredData: any = filterData(data, ["CSDTAM0006", "CSDTAM0007"]);
-    setEquipaments(data);
+    // setEquipaments(data);
+    console.log(filtredData);
   };
 
   const filterData = (arr: [], filters: String[]) => {

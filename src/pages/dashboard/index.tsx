@@ -38,7 +38,8 @@ export default function Dashboard() {
     const addingKey = res.map((item: any, index: any) => {
       return { ...item, key: `${++index}` };
     });
-    setPriceList(addingKey);
+    // setPriceList(addingKey);
+    console.log(addingKey);
   };
 
   const deletePrice = async (token: string, id: number) => {
