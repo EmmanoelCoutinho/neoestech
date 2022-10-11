@@ -2,7 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import { IDataType } from "../../@types/dashboardTableDataType";
 
 import { Table } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import {
+  PlusOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  ReloadOutlined,
+  SendOutlined,
+} from "@ant-design/icons";
 
 import { DeletePrice, getAllPriceList } from "../../services/prices";
 
@@ -23,6 +29,8 @@ export default function Dashboard() {
 
   const [priceList, setPriceList] = useState<IDataType[]>([]);
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
+  const [searchText, setSearchText] = useState<string>("");
+  const [filtredSearch, setFiltredSearch] = useState<IDataType[]>([]);
 
   const getList = async () => {
     const res = await getAllPriceList(
@@ -57,14 +65,47 @@ export default function Dashboard() {
     });
   };
 
+  const handleSearch = () => {
+    const filteredData = priceList.filter((item: any) => {
+      return item.cidade.toLowerCase().includes(searchText.toLowerCase());
+    });
+    console.log(filteredData);
+    setPriceList(filteredData);
+  };
+
   useEffect(() => {
     getList();
   }, []);
 
   return (
     <MainLayout>
-      <div className="w-full h-full overflow-hidden">
-        <div className="w-full h-fit flex justify-center">
+      <div className="w-screen h-full ">
+        <div className="w-full h-fit flex justify-center items-center">
+          <input
+            type="text"
+            className="w-20 h-fit border border-[#f69b44] my-4 mr-4
+          flex items-center justify-center p-2 gap-2 rounded-md font-black"
+            placeholder="Buscar por cidades"
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+            }}
+          />
+          <button
+            className="w-fit h-fit bg-green-500 my-4 mr-4
+          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
+            onClick={handleSearch}
+          >
+            <SendOutlined />
+          </button>
+          <button
+            className="w-fit h-fit bg-violet-500 my-4 mr-4
+          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
+            onClick={getList}
+          >
+            <ReloadOutlined />
+          </button>
+
           <button
             onClick={() => {
               setNewModalPriceState(true);
@@ -73,7 +114,7 @@ export default function Dashboard() {
             className="w-fit h-fit bg-[#f69b44] my-4 mr-4
           flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
           >
-            <PlusOutlined /> Adicionar novo preço
+            <PlusOutlined />
           </button>
           <button
             onClick={() => {
@@ -83,7 +124,7 @@ export default function Dashboard() {
             className="w-fit h-fit bg-blue-500 my-4 mr-4
           flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
           >
-            <PlusOutlined /> Editar preços selecionados
+            <EditOutlined />
           </button>
 
           <button
@@ -91,7 +132,7 @@ export default function Dashboard() {
             className="w-fit h-fit bg-red-500 my-4 mr-4
           flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
           >
-            <PlusOutlined /> Deletar preços selecionados
+            <DeleteOutlined />
           </button>
         </div>
         <div>
@@ -102,6 +143,7 @@ export default function Dashboard() {
             }}
             columns={columns}
             dataSource={priceList}
+            pagination={false}
           />
         </div>
       </div>

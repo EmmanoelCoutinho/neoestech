@@ -30,14 +30,14 @@ export default function MainLayout({ children }: any) {
   }, []);
 
   return (
-    <div className="w-screen h-screen flex flex-col overflow-x-hidden">
+    <div className="w-screen h-full flex flex-col">
       <PageHeader
-        className="border-b-[1px] border-[#f69b44] "
+        className=" w-screen border-b-[1px] border-[#f69b44] "
         onBack={() => router.back()}
         title={title}
         subTitle={subtitle}
       />
-      <div className="flex">
+      <div className="flex ">
         <AsideMenu />
         <div className="w-full flex">{children}</div>
       </div>
