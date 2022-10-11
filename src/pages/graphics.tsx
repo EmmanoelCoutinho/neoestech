@@ -10,12 +10,12 @@ const GraphicCards = dynamic(() => import("../components/GraphicChart"), {
 });
 
 export default function Graphics() {
-  const { userData } = useContext(UserContext);
+  // const { userData } = useContext(UserContext);
 
   const [equipaments, setEquipaments] = useState([]);
 
   const getEquips = async () => {
-    const data: any = await getEquipmentList(`${userData.token}`, "CSDTAM");
+    const data: any = await getEquipmentList(``, "CSDTAM");
     // const filtredData: any = filterData(data, ["CSDTAM0006", "CSDTAM0007"]);
     // setEquipaments(data);
     // console.log(filtredData);
