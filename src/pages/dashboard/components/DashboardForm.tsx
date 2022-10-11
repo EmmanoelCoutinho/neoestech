@@ -1,10 +1,11 @@
 import React, { useState, useContext } from "react";
-import { useRouter } from "next/router";
 import { Alert, Form, Input, Select } from "antd";
 
 import { createNewPrice, updatePrice } from "../../../services/prices";
 
-import { NewPriceModalContext } from "../../../contexts/modalsContexts/newPriceModalContext";
+import { NewPriceModalContext } from "../../../contexts/newPriceModalContext";
+import { UserContext } from "../../../contexts/userContext";
+import { ReloadListContext } from "../../../contexts/ReloadListContext";
 
 interface iDataProps {
   cidade: string;
@@ -18,10 +19,10 @@ interface iLog {
 }
 
 const DashboardForm = ({ selectedRows }: any) => {
-  const router = useRouter();
-  const { editOrCreate } = useContext(NewPriceModalContext);
-
-  console.log(selectedRows);
+  const { editOrCreate, newPriceModalState, setNewModalPriceState } =
+    useContext(NewPriceModalContext);
+  const { reload, setReload } = useContext(ReloadListContext);
+  const { userData } = useContext(UserContext);
 
   const [log, setLog] = useState({} as iLog);
   const [showAlert, setShowAlert] = useState(false);
@@ -29,9 +30,13 @@ const DashboardForm = ({ selectedRows }: any) => {
   const onFinish = (values: iDataProps) => {
     if (editOrCreate == "create") {
       sendNewPrice(values);
-      setTimeout(() => router.reload(), 3000);
+      setTimeout(() => {
+        setReload(!reload), setNewModalPriceState(!newPriceModalState);
+      }, 2000);
     }
     updatindSelectedRows(selectedRows, values);
+    setReload(!reload);
+    setNewModalPriceState(!newPriceModalState);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -39,14 +44,11 @@ const DashboardForm = ({ selectedRows }: any) => {
   };
 
   const sendNewPrice = async (data: iDataProps) => {
-    const status: any = await createNewPrice(
-      "1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ",
-      {
-        cidade: data.cidade,
-        combustivel: data.combustivel,
-        preco: parseFloat(data.preco),
-      }
-    );
+    const status: any = await createNewPrice(`${userData.token}`, {
+      cidade: data.cidade,
+      combustivel: data.combustivel,
+      preco: parseFloat(data.preco),
+    });
     setLog(status);
     setShowAlert(true);
     return status;
@@ -54,7 +56,7 @@ const DashboardForm = ({ selectedRows }: any) => {
 
   const updatindSelectedRows = (arr: any[], values: any) => {
     arr.map((item) => {
-      updatePrice("1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ", item.id, {
+      updatePrice(`${userData.token}`, item.id, {
         cidade: values.cidade,
         combustivel: values.combustivel,
         preco: parseFloat(values.preco),

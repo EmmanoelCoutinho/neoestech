@@ -15,38 +15,36 @@ import { DeletePrice, getAllPriceList } from "../../services/prices";
 import Modal from "../../components/Modal";
 import DashboardForm from "./components/DashboardForm";
 
-import { NewPriceModalContext } from "../../contexts/modalsContexts/newPriceModalContext";
-
 import { columns } from "../../utils/dashboardTableConfig";
 
 import MainLayout from "../../layout/Layout";
-import { useRouter } from "next/router";
+
+import { UserContext } from "../../contexts/userContext";
+import { ReloadListContext } from "../../contexts/ReloadListContext";
+import { NewPriceModalContext } from "../../contexts/newPriceModalContext";
 
 export default function Dashboard() {
-  const router = useRouter();
   const { newPriceModalState, setNewModalPriceState, setEditOrCreate } =
     useContext(NewPriceModalContext);
+  const { userData } = useContext(UserContext);
+  const { reload, setReload } = useContext(ReloadListContext);
 
   const [priceList, setPriceList] = useState<IDataType[]>([]);
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [searchText, setSearchText] = useState<string>("");
-  const [filtredSearch, setFiltredSearch] = useState<IDataType[]>([]);
 
   const getList = async () => {
-    const res = await getAllPriceList(
-      "1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ"
-    );
+    const res = await getAllPriceList(`${userData.token}`);
     const addingKey = res.map((item: any, index: any) => {
       return { ...item, key: `${++index}` };
     });
-    // setPriceList(addingKey);
-    console.log(addingKey);
+    setPriceList(addingKey);
   };
 
   const deletePrice = async (token: string, id: number) => {
     const status: any = await DeletePrice(token, id);
     if (status === "success") {
-      router.reload();
+      setReload(!reload);
     }
   };
 
@@ -62,7 +60,7 @@ export default function Dashboard() {
 
   const deletingSelecteds = (arr: any[]) => {
     arr.map((item: any) => {
-      deletePrice("1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ", item.id);
+      deletePrice(`${userData.token}`, item.id);
     });
   };
 
@@ -76,16 +74,16 @@ export default function Dashboard() {
 
   useEffect(() => {
     getList();
-  }, []);
+  }, [reload]);
 
   return (
-    <>
+    <MainLayout>
       <div className="w-screen h-full ">
         <div className="w-full h-fit flex justify-center items-center">
           <input
             type="text"
             className="w-20 h-fit border border-[#f69b44] my-4 mr-4
-      flex items-center justify-center p-2 gap-2 rounded-md font-black"
+          flex items-center justify-center p-2 gap-2 rounded-md font-black"
             placeholder="Buscar por cidades"
             value={searchText}
             onChange={(e) => {
@@ -94,14 +92,14 @@ export default function Dashboard() {
           />
           <button
             className="w-fit h-fit bg-green-500 my-4 mr-4
-      flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
+          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
             onClick={handleSearch}
           >
             <SendOutlined />
           </button>
           <button
             className="w-fit h-fit bg-violet-500 my-4 mr-4
-      flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
+          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
             onClick={getList}
           >
             <ReloadOutlined />
@@ -113,7 +111,7 @@ export default function Dashboard() {
               setEditOrCreate("create");
             }}
             className="w-fit h-fit bg-[#f69b44] my-4 mr-4
-      flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
+          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
           >
             <PlusOutlined />
           </button>
@@ -123,7 +121,7 @@ export default function Dashboard() {
               setEditOrCreate("edit");
             }}
             className="w-fit h-fit bg-blue-500 my-4 mr-4
-      flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
+          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
           >
             <EditOutlined />
           </button>
@@ -131,7 +129,7 @@ export default function Dashboard() {
           <button
             onClick={() => deletingSelecteds(selectedRows)}
             className="w-fit h-fit bg-red-500 my-4 mr-4
-      flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
+          flex items-center justify-center p-2 gap-2 rounded-md text-white font-black"
           >
             <DeleteOutlined />
           </button>
@@ -157,6 +155,6 @@ export default function Dashboard() {
           <DashboardForm selectedRows={selectedRows} />
         </Modal>
       )}
-    </>
+    </MainLayout>
   );
 }
