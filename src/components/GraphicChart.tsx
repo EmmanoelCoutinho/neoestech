@@ -74,13 +74,13 @@ export default function GraphicCards({
           </strong>
         </span>
 
-        <span>
+        {/* <span>
           Última checagem de temperata:{" "}
           {new Intl.DateTimeFormat("pt-BR", {
             dateStyle: "short",
             timeStyle: "short",
           }).format(new Date(lastTempCheck))}
-        </span>
+        </span> */}
       </div>
       <LineChart width={1200} height={200} data={graphicTemps}>
         <Line type="monotone" dataKey="temperatura" stroke="#f69b44" />
