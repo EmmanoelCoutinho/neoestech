@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+
+import { UserContext } from "../contexts/userContext";
 
 import { PageHeader } from "antd";
 
@@ -8,6 +10,7 @@ import AsideMenu from "../components/AsideMenu";
 
 export default function MainLayout({ children }: any) {
   const router = useRouter();
+  const { userData } = useContext(UserContext);
 
   const [title, setTitle] = useState("");
   const [subtitle, setSubtitle] = useState("");
@@ -25,8 +28,15 @@ export default function MainLayout({ children }: any) {
     }
   };
 
+  const checkUserIsLogged = () => {
+    if (userData.token == undefined) {
+      router.push("/");
+    }
+  };
+
   useEffect(() => {
     checkPath();
+    checkUserIsLogged();
   }, []);
 
   return (
