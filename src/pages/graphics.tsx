@@ -38,7 +38,7 @@ export default function Graphics() {
         <h1 className="ml-14 mt-4 font-bold text-3xl text-[#f69b44]">
           Gráficos das ultimas 24h de operação
         </h1>
-        {equipaments.map((item: any) => (
+        {/* {equipaments.map((item: any) => (
           <GraphicCards
             key={item[0].id}
             equipId={item[0].id}
@@ -49,7 +49,7 @@ export default function Graphics() {
             unitOfMeasurenment={item[0].unidade_medida}
             lastTempCheck={item[0].data_hora_ultima_medicao}
           />
-        ))}
+        ))} */}
       </div>
     </MainLayout>
   );
