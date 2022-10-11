@@ -19,6 +19,23 @@ export async function getAllPriceList(token: string) {
   }
 }
 
+export async function getPriceListById(token: string, id: number) {
+  try {
+    const price: any = await axios.get(`${baseUrl}/cadastro/precos/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return price.data;
+  } catch {
+    (err: any) => {
+      console.log(err);
+      return err;
+    };
+  }
+}
+
 export async function createNewPrice(token: string, data: {}) {
   try {
     const price: any = await axios.post(`${baseUrl}/cadastro/precos`, data, {
@@ -36,7 +53,27 @@ export async function createNewPrice(token: string, data: {}) {
   }
 }
 
-export async function DeleteOnePrice(token: string, id: number) {
+export async function updatePrice(token: string, id: number, data: {}) {
+  try {
+    const price: any = await axios.put(
+      `${baseUrl}/cadastro/precos/${id}`,
+      data,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return "success";
+  } catch {
+    (err: any) => {
+      console.log(err);
+      return "error";
+    };
+  }
+}
+
+export async function DeletePrice(token: string, id: number) {
   try {
     const price: any = await axios.delete(`${baseUrl}/cadastro/precos/${id}`, {
       headers: {
@@ -44,11 +81,11 @@ export async function DeleteOnePrice(token: string, id: number) {
       },
     });
 
-    return price.data;
+    return "success";
   } catch {
     (err: any) => {
       console.log(err);
-      return err;
+      return "error";
     };
   }
 }

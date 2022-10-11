@@ -39,7 +39,7 @@ const AsideMenu: React.FC = () => {
   const Router = useRouter();
   const pages = ["/map", "/graphics", "/dashboard"];
 
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   const toggleCollapsed = () => {
     setCollapsed(!collapsed);

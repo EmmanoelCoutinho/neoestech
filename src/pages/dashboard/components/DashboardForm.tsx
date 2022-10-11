@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { Alert, Form, Input, Select } from "antd";
 
-import { createNewPrice } from "../services/prices";
+import { createNewPrice, updatePrice } from "../../../services/prices";
+
+import { NewPriceModalContext } from "../../../contexts/modalsContexts/newPriceModalContext";
 
 interface iDataProps {
   cidade: string;
@@ -15,15 +17,21 @@ interface iLog {
   message: any;
 }
 
-const DashboardForm: React.FC = () => {
+const DashboardForm = ({ selectedRows }: any) => {
   const router = useRouter();
+  const { editOrCreate } = useContext(NewPriceModalContext);
+
+  console.log(selectedRows);
 
   const [log, setLog] = useState({} as iLog);
   const [showAlert, setShowAlert] = useState(false);
 
   const onFinish = (values: iDataProps) => {
-    sendNewPrice(values);
-    setTimeout(() => router.reload(), 3000);
+    if (editOrCreate == "create") {
+      sendNewPrice(values);
+      setTimeout(() => router.reload(), 3000);
+    }
+    updatindSelectedRows(selectedRows, values);
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -42,6 +50,16 @@ const DashboardForm: React.FC = () => {
     setLog(status);
     setShowAlert(true);
     return status;
+  };
+
+  const updatindSelectedRows = (arr: any[], values: any) => {
+    arr.map((item) => {
+      updatePrice("1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ", item.id, {
+        cidade: values.cidade,
+        combustivel: values.combustivel,
+        preco: parseFloat(values.preco),
+      });
+    });
   };
 
   return (
@@ -88,11 +106,14 @@ const DashboardForm: React.FC = () => {
           <Input placeholder="Preço Ex: 5.78" />
         </Form.Item>
         <button className="w-fit h-fit border border-[#f69b44] p-2 text-[#f69b44] font-black hover:bg-[#f69b44] hover:text-white hover:border-white ">
-          Cadastrar novo preço
+          {editOrCreate == "create"
+            ? "Cadastrar novo preço"
+            : "Atualizar preço"}
         </button>
       </Form>
       {showAlert && (
         <Alert
+          className="mt-2"
           message={log.message}
           type={log.status == "success" ? "success" : "error"}
           showIcon

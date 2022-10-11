@@ -61,7 +61,7 @@ const Home: NextPage = () => {
               ]}
               className="w-full"
             >
-              <Input.Password className="w-full mt-4" placeholder="Senha" />
+              <Input.Password className="w-full mt-2" placeholder="Senha" />
             </Form.Item>
             {err ?? <span className="text-white">{err}</span>}
             <button

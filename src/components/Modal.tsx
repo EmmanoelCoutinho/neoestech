@@ -1,30 +1,33 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Modal } from "antd";
-
-import { NewPriceModalContext } from "../contexts/newPriceModalContext";
 
 interface IProps {
   title: string;
   children: React.ReactNode;
   footerItems?: React.ReactNode[] | null;
+  open: boolean;
+  setOpen: (value: boolean) => void;
 }
 
-export default function App({ title, children, footerItems = null }: IProps) {
-  const { newPriceModalState, setNewModalPriceState } =
-    useContext(NewPriceModalContext);
-
+export default function ({
+  title,
+  children,
+  footerItems = null,
+  open,
+  setOpen,
+}: IProps) {
   const handleOk = () => {
-    setNewModalPriceState(false);
+    setOpen(!open);
   };
 
   const handleCancel = () => {
-    setNewModalPriceState(false);
+    setOpen(!open);
   };
 
   return (
     <>
       <Modal
-        open={newPriceModalState}
+        open={open}
         title={title}
         onOk={handleOk}
         onCancel={handleCancel}
