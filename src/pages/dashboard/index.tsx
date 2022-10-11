@@ -15,26 +15,27 @@ import { DeletePrice, getAllPriceList } from "../../services/prices";
 import Modal from "../../components/Modal";
 import DashboardForm from "./components/DashboardForm";
 
-import { NewPriceModalContext } from "../../contexts/newPriceModalContext";
+import { NewPriceModalContext } from "../../contexts/modalsContexts/newPriceModalContext";
 
 import { columns } from "../../utils/dashboardTableConfig";
 
 import MainLayout from "../../layout/Layout";
 import { useRouter } from "next/router";
-import { UserContext } from "../../contexts/userContext";
 
 export default function Dashboard() {
   const router = useRouter();
   const { newPriceModalState, setNewModalPriceState, setEditOrCreate } =
     useContext(NewPriceModalContext);
-  const { userData } = useContext(UserContext);
 
   const [priceList, setPriceList] = useState<IDataType[]>([]);
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [searchText, setSearchText] = useState<string>("");
+  const [filtredSearch, setFiltredSearch] = useState<IDataType[]>([]);
 
   const getList = async () => {
-    const res = await getAllPriceList(`${userData.token}`);
+    const res = await getAllPriceList(
+      "1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ"
+    );
     const addingKey = res.map((item: any, index: any) => {
       return { ...item, key: `${++index}` };
     });
@@ -61,7 +62,7 @@ export default function Dashboard() {
 
   const deletingSelecteds = (arr: any[]) => {
     arr.map((item: any) => {
-      deletePrice(`${userData.token}`, item.id);
+      deletePrice("1790|fiwdSKpyujL7Str9WNyxhXpa3c7hwHuWWVHzIRoQ", item.id);
     });
   };
 

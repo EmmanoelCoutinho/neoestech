@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { baseUrl } from "../utils/baseUrl";
+const baseUrl = "https://dev.api.neoestech.com.br";
 
 export async function UserLogin(username: string, password: string) {
   try {
